@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Complexo hospitalar UPE</title>
+    </head>
+    <body align="center">
+        {% if user.is_authenticated %}
+            {% for group in request.user.groups.all %}
+              {% if group.name == 'medicos'%}
+                <br></br>
+                {% if submitted %}
+                <h1>O seu exame foi registrado no sistema</h1>
+                <br></br>
+                {% else %}
+                <h1> Adicione o seu exame </h1>
+                <br></br>
+
+                <form method="POST" action="{% url 'login_cliente:registro_exames' %}", enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+                    <input type="submit" value="Registrar" class="btn btn-secondary">
+                    <!--<button type="submit" class="btn btn-primary">Registrar</button>-->
+
+                </form>
+        
+                {% endif %}
+
+                {% endif %}
+            {% endfor %}
+        {% else %}
+        <h1>Página não disponível</h1>
+        {% endif %}
+    </body>
+</html>
+
+{% endblock %}

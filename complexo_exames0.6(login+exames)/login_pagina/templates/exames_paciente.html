@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Complexo hospitalar UPE</title>
+    </head>
+    <body>
+        <h1>Seus exames</h1>
+        <br></br>
+
+        {% for exames in exame %}
+        
+        <div class="card">
+            <div class="card-header">
+                Data de realização do exame: {{ exames.data_realizacao }}
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ exames.nome_exame }}</h5>
+              <p class="card-text">{{ exames.descricao }}</p>
+              <p class="card-text">Status: 
+                {% if exames.concluido == True %}
+                    Concluído
+                {% else %}
+                Pendente
+                {% endif %}
+              </p>
+              <a href="{{ MEDIA_ROOT }}/{{ exames.arquivo }}" class="btn btn-primary">Arquivo do exame</a>
+            </div>
+        </div>
+        
+        <!--<strong>{{ exames.nome_exame }}</strong>
+        <ul>
+        <li>Descrição: {{ exames.descricao }}</li>
+        <li>Status: 
+            {% if exames.concluido == True %}
+            Concluído
+            {% else %}
+            Pendente
+            {% endif %}
+            </li>
+        <li>Data de realização do exame: {{ exames.data_realizacao }}</li>
+        <li>
+            <a href="{{ MEDIA_ROOT }}/{{ exames.arquivo }}">
+            Arquivo do exame
+            </a>
+        </li>
+        </ul>-->
+        
+        <br></br>
+        {% endfor %}
+
+    </body>
+</html>
+
+{% endblock %}
